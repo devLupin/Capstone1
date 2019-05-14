@@ -13,13 +13,21 @@ he can see the time and number of times he escaped.
 
 #!/usr/bin/python
 
-import datetime
-now = datetime.now()
+#----------------------------------------------------------------------
+# import std lib
+#----------------------------------------------------------------------
+from datetime import datetime
 
+now = datetime.now()
 FILEPATH = "/root/log/log.txt"
 
+
+#----------------------------------------------------------------------
+# Create log file for the first time
+# The Method is executed only once.
+#----------------------------------------------------------------------
 def NewLogFile():
-    f = open(FILEPATH, 'w')
+    f = open(FILEPATH, 'w')     # log.txt file open(write mode)
     
     data = "Press ctrl + f and enter the student number. \n\n" 
     f.write(data)
@@ -28,14 +36,22 @@ def NewLogFile():
 
 
 
+#----------------------------------------------------------------------
+# ex) 2019-01-01 01:23:45 20140000 has gone out.
+# Written to text file
+# file name : log.txt
+#----------------------------------------------------------------------
 def Log(STUDENT_NUM):
-    f = open(FILEPATH, 'a')
+    f = open(FILEPATH, 'a')     # log.txt file open(append mode)
     
-    curDate = now.year + "-" + now.month + "-" + now.day + " "
-    curTime = now.hour + ":" + now.minute + ":" + now.sec + "  "
+    # Get current time
+    curDate = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + " "
+    curTime = str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "  "
     cur = curDate + curTime
 
-    data = cur + STUDENT_NUM + " has gone out. \n"
+    data = cur + " " + str(STUDENT_NUM) + " has gone out. \n"
     f.write(data)
 
     f.close()
+
+    print(data + '\n')

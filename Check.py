@@ -34,45 +34,43 @@ import collections
 #----------------------------------------------------------------------
 def Find_MAC_Address():
     CONST_NEXTLINE = 30 # Difference up to
-    studentList = []    # MAC addr list
+    
+    macList = []    # MAC addr list
 
     # Connected smartphone list
     command = subprocess.check_output(["iwinfo", "wlan0", "assoclist"], universal_newlines=True)
     copy = command      # Do not touch the original
 
     first_macAddr = copy[0:17] 
-    studentList.append(first_macAddr)   # Put it on the list
+    macList.append(first_macAddr)   # Put it on the list
     while True:
         end = copy.find("expected throughput: unknown")     # Find each MAC address one by one.
         if(end < 0):    # If you don't have the following MAC address
             break
 
         copy = copy[(end+CONST_NEXTLINE):]
-        studentList.append(copy[0:17])
+        macList.append(copy[0:17])
     
-    return studentList
+    return macList
 
 
 #----------------------------------------------------------------------
 # Look up the student number by referring to the MAC address
 #----------------------------------------------------------------------
-def Attandance(STUDENT):
-    check_list = [" ",]    # Attendance Check list
-    cnt = 0         # For sequential search count
-
-    while True:
-        if (cnt > 99): # While loop escape condition
-            break
-
+def Attandance(MAC_LIST):
+    stdNum_list = []    # Attendance Check list
+    limit = firebase.get('count_class/', 'user_id')
+    cnt = 1
+    while (cnt < limit):
         path = 'user_info/' + str(cnt)      # firebase path
         temp = firebase.get(path, 'user_mac') # Get the user mac address
 
-        for i in STUDENT:   # Sequential search
-            if (i == temp):  # If have a matching mac address
-                # Find the student number
-                check_list.append(firebase.get(path, 'user_id')
-                continue
+        for mac in MAC_LIST:    # Sequential search
+            if (mac == temp):   # If have a matching mac address
+                                # Find the student number
+                # Order by (cnt, mac_addr, stdNum)
+                stdNum_list.append([cnt, mac, firebase.get(path, 'user_id')])
         
         cnt += 1
 
-    return check_list
+    return stdNum_list
