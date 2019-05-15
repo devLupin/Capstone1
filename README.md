@@ -23,10 +23,10 @@ Starting Project : 2019.03.07
 
 ## Attendance
 
-**Purpose**
+- **Purpose**
 The method of present attendance is name calling, QR code, certification number system, and so on. First, the name calling method is very inefficient in the classrooms accommodating a large number of students because it is required to call every one of them. Secondly, the QR code method can save time, but if you take a QR code, it will be in attendance so you can attend it if you have a copy. The third authentication number scheme has the same disadvantage as the QR code.
 
-**Content**
+- **Content**
 The primary authentication method used by our team is to make Raspberry PI a single router using OpenWrt, a Linux-based open source. Connect multiple Mobile to Raspberry PI (RPI). The student cell phone must always be directly connected to the server RPI. Then, we use the MAC address of the connected mobile to verify the individual. 
 
 The second secondary authentication method uses a fingerprint sensor at the door to manage access records separately. This is to control the time students leave the classroom in the middle of the class. Students register their fingerprints when they enter the classroom. And fingerprints are registered even when going out. If the outing time exceeds a certain time, record it as a break-out person.
@@ -38,11 +38,11 @@ From the point of view of the user, the RPI operation process is as follows.
 
 ## Notifier
 
-**Purpose**
+- **Purpose**
 The school delivers all announcements using paid MMS. At the level of astronomical costs when one year's message is calculated. So the team devised a way to solve these problems.
 
 
-**Content**
+- **Content**
 If you have installed the application developed by our team, you will receive a message from the professor in the form of a bulletin board. At this time, RPI becomes a server, and each student's mobile becomes a client. The specific function process is as follows.
 
 The process from the point of view of the user is as follows.
@@ -93,7 +93,7 @@ The professor delivers the message. - The message is forwarded to the server. - 
     root@OpenWrt:~# opkg install python-light
     ```
 
-- **[python-pip]**
+- **python-pip**
     ```
     root@OpenWrt:~# opkg install python-pip
     root@OpenWrt:~# pip install --upgrade pip
