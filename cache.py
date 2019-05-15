@@ -28,10 +28,10 @@ FILEPATH = "/root/log/log.txt"
 #----------------------------------------------------------------------
 def NewLogFile():
     f = open(FILEPATH, 'w')     # log.txt file open(write mode)
-    
+
     data = "Press ctrl + f and enter the student number. \n\n" 
     f.write(data)
-
+    
     f.close()
 
 
@@ -43,7 +43,7 @@ def NewLogFile():
 #----------------------------------------------------------------------
 def Log(STUDENT_NUM):
     f = open(FILEPATH, 'a')     # log.txt file open(append mode)
-    
+
     # Get current time
     curDate = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + " "
     curTime = str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "  "

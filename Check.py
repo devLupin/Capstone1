@@ -41,7 +41,7 @@ def Find_MAC_Address():
     command = subprocess.check_output(["iwinfo", "wlan0", "assoclist"], universal_newlines=True)
     copy = command      # Do not touch the original
 
-    first_macAddr = copy[0:17] 
+    first_macAddr = copy[0:17]
     macList.append(first_macAddr)   # Put it on the list
     while True:
         end = copy.find("expected throughput: unknown")     # Find each MAC address one by one.
@@ -50,7 +50,7 @@ def Find_MAC_Address():
 
         copy = copy[(end+CONST_NEXTLINE):]
         macList.append(copy[0:17])
-    
+
     return macList
 
 
@@ -66,11 +66,11 @@ def Attandance(MAC_LIST):
         temp = firebase.get(path, 'user_mac') # Get the user mac address
 
         for mac in MAC_LIST:    # Sequential search
-            if (mac == temp):   # If have a matching mac address
-                                # Find the student number
-                # Order by (cnt, mac_addr, stdNum)
+            if (mac == str(temp)):
                 stdNum_list.append([cnt, mac, firebase.get(path, 'user_id')])
+
         
         cnt += 1
 
-    return stdNum_list
+
+    return stdNum_list 

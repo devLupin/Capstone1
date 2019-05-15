@@ -48,7 +48,7 @@ def Init_EscapeList(STDNUM_LIST):
 #----------------------------------------------------------------------
 def Add_EscapeList(ADD_LIST):
     global idx
-    
+
     path = 'The_number_of_escapes/' + str(idx)
 
     firebase.put(path, 'STDNUM', ADD_LIST[STDNUM])
@@ -76,11 +76,11 @@ def EscapeList(STDNUM_LIST):    # STDNUM_LIST : Order by (cnt, mac, stdNum)
             for cnt in range(0, idx):
                 path = 'The_number_of_escapes/' + str(cnt)
                 temp = firebase.get(path, 'MAC')
-                
+
                 if(student[MAC] == temp):
                     firebase.put(path, 'STATUS', True)
                     break
-                
+
                 Add_EscapeList(student)
 
 
@@ -101,4 +101,4 @@ def EscapeList(STDNUM_LIST):    # STDNUM_LIST : Order by (cnt, mac, stdNum)
         path = 'The_number_of_escapes/' + str(cnt)
         firebase.put(path, 'STATUS', False)
 
-    return idx
+    return idx 
