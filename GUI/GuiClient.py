@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import time
 from tkinter import*
 
-"""
+
 HOST='118.40.15.67'
 PORT=7000
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -13,7 +13,7 @@ s.connect((HOST,PORT))
 f = open("/home/pi/12345.txt",'r')
 line = f.read()
 f.close()
-"""
+
 root = Tk()
 
 def realend():
@@ -156,7 +156,7 @@ main()
 
 root.mainloop()
 
-"""
+
 try:
 
     while True:
@@ -168,7 +168,7 @@ try:
 finally:
     GPIO.clenup()
     s.close()
-"""
+
 
 
 
