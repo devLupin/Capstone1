@@ -64,15 +64,40 @@ def Option():
 
 
 
-def Attendance_Start():
+def Attendance_Start(num):
     global control
+
     messagebox.showinfo("Attendance", "start")
     control = True 
 
-def Attendance_Stop():
+    path = 'seat_info\class' + str(num)
+
+    #firebase.put(path, start, True)
+
+def Attendance_Stop(num):
     global control
+
     messagebox.showinfo("Attendance", "Stop")
     control = False
+
+    path = 'seat_info\class' + str(num)
+
+    #firebase.put(path, start, False)
+
+def StartAndStop(num):
+    root = Tk()
+
+    title = 'Class' + str(num) + ' Start and Stop'
+
+    root.title(title)
+    root.geometry("400x400+300+300")
+
+    start_button = Button(root, text="Start", width=10, command= lambda: Attendance_Start(num))
+    start_button.pack(padx=10,pady=60)
+
+    stop_button = Button(root, text="Stop", width=10, command= lambda: Attendance_Stop(num))
+    stop_button.pack(padx=10,pady=30)
+
 
 def Attendance():
     root = Tk()
@@ -80,11 +105,18 @@ def Attendance():
     root.title("Attendance")
     root.geometry("400x400+300+300")
 
-    start_button = Button(root, text="Start", width=10, command=Attendance_Start)
-    start_button.pack(padx=10,pady=60)
+    class1 = Button(root, text="class 1", width=10, command= lambda: StartAndStop(1))
+    class1.pack(padx=10,pady=10)
 
-    stop_button = Button(root, text="Stop", width=10, command=Attendance_Stop)
-    stop_button.pack(padx=10,pady=30)
+    class2 = Button(root, text="class 2", width=10, command= lambda: StartAndStop(2))
+    class2.pack(padx=10,pady=10)
+
+    class3 = Button(root, text="class 3", width=10, command= lambda: StartAndStop(3))    
+    class3.pack(padx=10,pady=10)
+
+    class4 = Button(root, text="class 4", width=10, command= lambda: StartAndStop(4))
+    class4.pack(padx=10,pady=10)
+
 
 
     
