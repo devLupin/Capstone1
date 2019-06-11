@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserMainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/attend_check_button"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/black_storke"
+                android:textColor="#000000"
+                android:text="출석체크"/>
+            <Button
+                android:id="@+id/notice_button"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#000000"
+                android:textColor="#FFFFFF"
+                android:text="공지사항"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/info_button"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#000000"
+                android:textColor="#FFFFFF"
+                android:text="내정보"
+                />
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/black_storke"
+                android:textColor="#000000"
+                android:text="로그아웃"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -27,9 +27,10 @@ FILEPATH = "/root/log/log.txt"
 # The Method is executed only once.
 #----------------------------------------------------------------------
 def NewLogFile():
-    f = open(FILEPATH, 'w')     # log.txt file open(write mode)
+    f = open(FILEPATH, 'a')     # log.txt file open(write mode)
 
-    data = "Press ctrl + f and enter the student number. \n\n" 
+    curDate = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + " "
+    data = "\n\n\n\n" + curDate + "\n\n" 
     f.write(data)
     
     f.close()
@@ -45,11 +46,9 @@ def Log(STUDENT_NUM):
     f = open(FILEPATH, 'a')     # log.txt file open(append mode)
 
     # Get current time
-    curDate = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + " "
     curTime = str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "  "
-    cur = curDate + curTime
 
-    data = cur + " " + str(STUDENT_NUM) + " has gone out. \n"
+    data = curTime + " " + str(STUDENT_NUM) + " has gone out. \n"
     f.write(data)
 
     f.close()

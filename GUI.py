@@ -5,23 +5,31 @@
 ### 
 """
 
-
+import datetime
 from tkinter import*
 from tkinter import messagebox
+import socket
+import RPi.GPIO as GPIO
+import time
 
 #----------------------------------------------------------------------
 # Firebase Connect Part
 #----------------------------------------------------------------------
-#from firebase import firebase
-#firebase = firebase.FirebaseApplication("https://capstone-776cd.firebaseio.com/", None)
+from firebase import firebase
+firebase = firebase.FirebaseApplication("https://capstone-776cd.firebaseio.com/", None)
 
 
-control = False
+HOST='192.168.0.102'
+PORT=7000
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+print('Connecting to ' + HOST)
+s.connect((HOST,PORT))
 
+def close():
+    s.send('0'.encode())
 
-def GetControl():
-    global control
-    return control
+def open():
+    s.send('1'.encode())
 
 
 
@@ -65,24 +73,24 @@ def Option():
 
 
 def Attendance_Start(num):
-    global control
-
     messagebox.showinfo("Attendance", "start")
-    control = True 
 
-    path = 'seat_info\class' + str(num)
+    path = 'seat_info/class' + str(num)
 
-    #firebase.put(path, start, True)
+    firebase.put(path, 'start', True)
+    firebase.put('Attendance', 'control', True)
+
+    open()
 
 def Attendance_Stop(num):
-    global control
-
     messagebox.showinfo("Attendance", "Stop")
-    control = False
 
-    path = 'seat_info\class' + str(num)
+    path = 'seat_info/class' + str(num)
 
-    #firebase.put(path, start, False)
+    firebase.put(path, 'start', False)
+    firebase.put('Attendance', 'control', False)
+    
+    close()
 
 def StartAndStop(num):
     root = Tk()
@@ -97,7 +105,6 @@ def StartAndStop(num):
 
     stop_button = Button(root, text="Stop", width=10, command= lambda: Attendance_Stop(num))
     stop_button.pack(padx=10,pady=30)
-
 
 def Attendance():
     root = Tk()
@@ -121,27 +128,40 @@ def Attendance():
 
     
 
-def ShowOK():
+def ShowOK(content_txt):
+    content = content_txt.get(1.0, END)
+    print(content)
+    noticeCnt = (int)(firebase.get('count_class', 'notice_id'))
+    
+    d = datetime.date.today()
+    present = str(d.year) + '.' + str(d.month) + '.' + str(d.day)
+    
+    path = 'notice_info/' + str(noticeCnt)
+    firebase.put(path, 'content', content)
+    firebase.put('count_class/', 'notice_id', int(noticeCnt+1))
+    
+    firebase.put(path, 'date', present)
+    
+    firebase.put(path, 'id', int(noticeCnt-1))
+    
+    firebase.put(path, 'name', 'professor')
+    
     messagebox.showinfo("Send the message", "OK")
+
 
 def Notice():
     root = Tk()
 
     root.title("Notice")
-    root.geometry("400x400+300+300")
+    root.geometry("500x500+400+400")
 
     content=Label(root,width=10,text="content  : ")
     content.grid(column=1,row=30,pady=20)
     content_txt=Text(root,width=40, height=25)
     content_txt.grid(column=2,row=30,pady=10)
 
-    #noticeCnt = (int)(firebase.get('count_class', 'notice_id'))
-    #firebase.put('notice_info', str(noticeCnt), content)
-
-    send_btn = Button(root, text="Send", width=10, command=ShowOK)
-    send_btn.grid(column=2,row=57, pady=30)
-
-    #firebase.put('count_class', 'notice_id', str(noticeCnt+1))
+    send_btn = Button(root, text="Send", width=10, command= lambda: ShowOK(content_txt))
+    send_btn.grid(column=2,row=60, pady=30)
 
 
 
